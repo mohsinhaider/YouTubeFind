@@ -23,10 +23,7 @@ function seconds(){
 
 function search(){
 	var string = document.getElementById("searchBar").value;
-	// if(string.incudes("the")){
-		// console.log("the");
-	// }
-	containsWords(string);
+	containsWord(string);
 	
 	if(!Array.isArray(times)){
 		times = [];
@@ -34,7 +31,6 @@ function search(){
 	}
 	else
 		seconds = times;
-	
 	var result = times.map(function(num){
 		num /= 3600;
 		var hours = Math.floor(num);
@@ -76,7 +72,7 @@ function containsWord(word){
 	var j = 0;
 	while(fullTranscript.childNodes[i]){
 		mydoc = fullTranscript.childNodes[i];
-		if(mydoc.innerHTML.includes(word)){
+		if(mydoc.innerHTML.toLowerCase().includes(word.toLowerCase())){
 			times[j] = mydoc.getAttribute("start");
 			j++;
 		}
@@ -93,15 +89,21 @@ function containsWords(line){
 	var flag = false;
 	var includeEnd = false;
 	var next;
+	// var times2 = times;
+	// for(var obj in fullTranscript.childNodes){
+		// if(obj.includes(line){
+			// times2[j] = obj.getAttribute("start");
+			// j++
+		// }
+	// }
+	// j=0;
 	var string = line.split(" ");
 	var word;
-	
 	while(fullTranscript.childNodes[i]){
 		next = i + 1;
 		mydoc = fullTranscript.childNodes[i];
 		times[j] = mydoc.getAttribute("start");
 		j++;
-		
 		for(w = 0; w < string.length; w++){
 			if(mydoc.innerHTML.toLowerCase().includes(string[w].toLowerCase())){
 				
@@ -115,11 +117,10 @@ function containsWords(line){
 				if(fullTranscript.childNodes[next].innerHTML.toLowerCase().includes(string[w].toLowerCase())){
 					mydoc = fullTranscript.childNodes[next];
 					next++;
-					j--;
-				}
 				
-				if(i == fullTranscript.childNodes.length - 1){
-					includeEnd = true;
+					if(i == fullTranscript.childNodes.length - 1){
+						includeEnd = true;
+					}
 				}
 				
 				continue;
@@ -144,4 +145,5 @@ function containsWords(line){
 	if(!flag){
 		times = null;
 	}
+	// times = times2;
 }

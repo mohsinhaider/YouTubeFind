@@ -58,6 +58,8 @@
 
   <h1 id="bigOne"></h1>
 
+  <div id="tester" style="width:90%;height:250px;"></div>
+
   <!-- Firebase must be first -->
   <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
   <script src="database.js"></script>
@@ -65,8 +67,11 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   
   <script src="updatecsv.js"></script>
 
@@ -94,6 +99,14 @@
 		//var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
 		document.getElementById('vInput3').innerHTML = urlString; 
 		document.getElementById('SearchBar').innerHTML = '<div class = "input1">Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav></div>';
+
+		TESTER = document.getElementById('tester');
+
+			Plotly.plot( TESTER, [{
+    			x: [1, 2, 3, 4, 5],
+   				y: [1, 2, 4, 8, 16] }], { 
+    			margin: { t: 0 } 
+    		} );
 	}
 	
 	function onClick(num){
@@ -179,6 +192,7 @@
 			}
 			console.log("Out here!");
 			resetSearch();
+
 		}
 	}
 	
@@ -188,6 +202,10 @@
 			fetchD();
 		}	
 	}
+
+/* Current Plotly.js version */
+console.log( Plotly.BUILD );
+
   </script>
   
 </body>
