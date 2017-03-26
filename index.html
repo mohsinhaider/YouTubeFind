@@ -38,12 +38,12 @@
 	}
 	
 	function hideD() {
-    var x = document.getElementById('vButton2');
-    if (x.style.display === 'none') {
-        x.style.display = 'block';
-    } else {
-        x.style.display = 'none';
-    }
+		var x = document.getElementById('vButton2');
+		if (x.style.display === 'none') {
+			x.style.display = 'block';
+		} else {
+			x.style.display = 'none';
+		}	
 	}
 	
 	function enterpressalert(e, textarea) {
@@ -64,7 +64,7 @@
 					currentButton.style.display = "none";
 				}				
 				currentButton = document.getElementById("result1");
-				currentButton.style.display = "display";
+				currentButton.style.display = "inline";
 				currentButton.innerHTML = "NOT FOUND"
 				resetSearch();
 				return;
@@ -133,6 +133,7 @@
 <div class = "input1" id = "vInput3" > </div>
 
 <div id="time_container" class="input1">
+	<p id = "sentence"></p>
 	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none"></button>
 	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none"></button>
 	<button class="waves-effect waves-light btn button-bg" id="result3" style="display: none"></button>
