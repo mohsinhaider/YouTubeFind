@@ -3,9 +3,10 @@ import xlwt
 import sys
 
 # wb = open_workbook('data.xlsx')
+arr = sys.argv[1]
 wb2 = xlwt.Workbook()
 sh = wb2.add_sheet("sheet1")
-sh.write(0,0, sys.argv[1])
+sh.write(0,0, arr[0])
 
 # for s in wb.sheets():
     # #print 'Sheet:',s.name
