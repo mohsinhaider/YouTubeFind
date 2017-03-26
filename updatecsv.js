@@ -23,8 +23,9 @@ function search(){
 		console.log(times.join("\n"));
 	else
 		console.log("none found");
-	
-	return times;
+	var result = times;
+	times = [];
+	return result;
 }
 
 
@@ -56,7 +57,7 @@ function containsWords(line){
 	while(fullTranscript.childNodes[i]){
 		next = i + 1;
 		mydoc = fullTranscript.childNodes[i];
-		times[j] = mydoc.getAttribute("start").toString();
+		times[j] = mydoc.getAttribute("start");
 		j++;
 		
 		for(w = 0; w < string.length; w++){
@@ -97,6 +98,6 @@ function containsWords(line){
 			times.pop();
 	}
 	if(!flag){
-		times = 0.0;
+		times = null;
 	}
 }
