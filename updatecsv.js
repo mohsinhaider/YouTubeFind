@@ -27,8 +27,14 @@ function search(){
 		num -= minutes;
 		num *= 60;
 		var seconds = num.toFixed(2);
+		var output;
+		if(hours)
+			output = hours + ":" + minutes + ":" + seconds;
+		else if(minutes)
+			output = minutes + ":" + seconds;
+		else
+			output = seconds;
 		
-		var output = hours + ":" + minutes + ":" + seconds;
 		return output;
 	});
 	
