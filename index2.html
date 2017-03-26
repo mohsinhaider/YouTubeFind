@@ -32,9 +32,8 @@
 		var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
 		document.getElementById('vInput3').innerHTML = urlString; 
 		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
-
-
 	}
+
 	function hideD() {
     var x = document.getElementById('vButton2');
     if (x.style.display === 'none') {
@@ -46,8 +45,13 @@
 	
 	function enterpressalert(e, textarea) {
 		var code = (e.keyCode ? e.keyCode : e.which);
-
+		// var currentButton;
 		if(code == 13) { //Enter keycode
+			var j = 0;
+			for (j = 0; j < 5; j++) {
+				currentButton = document.getElementById("result" + (j+1));
+				currentButton.style.display = "none";
+			}
 			console.log(search());
 			result = search();
 			var input1 = document.getElementById("result1");
@@ -62,12 +66,14 @@
 					if (outsideCounter == 5) {
 						break;
 					}
-					input1 = document.getElementById("result" + (i+1) );
+					input1 = document.getElementById("result" + (i+1));
+					outsideCounter++;
+					input1.style.display = "inline";
 					input1.innerHTML = result[i];
 				}
 			}
 			console.log("Out here!");
-			input1.innerHTML = result[0];
+			//input1.innerHTML = result[0];
 		}
 	}
 	
@@ -98,6 +104,10 @@
 	padding-right: 250px;
 	padding-top: 50px;
   }
+  .button-bg {
+  	background-color: red;
+  }
+
   
   </style>
 </head>
@@ -109,11 +119,11 @@
 <div class = "input1" id = "vInput3" > </div>
 
 <div id="time_container" class="input1">
-	<span id="result1"></span>
-	<span id="result2"></span>
-	<span id="result3"></span>
-	<span id="result4"></span>
-	<span id="result5"></span>
+	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none;">Hello</button>
+	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none; "></button>
+	<button class="waves-effect waves-light btn button-bg" id="result3" style="display: none"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result4" style="display: none"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result5" style="display: none"></button>
 </div>
 
 <div class = "input1" id = "vInput2" > Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> </div>

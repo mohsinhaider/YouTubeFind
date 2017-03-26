@@ -26,15 +26,20 @@ function search(){
 		var minutes = Math.floor(num);
 		num -= minutes;
 		num *= 60;
-		var seconds = num.toFixed(2);
+		var seconds = Math.floor(num);
+
+		var date = new Date(0, 0, 0, hours, minutes, seconds, 0);
 		var output;
-		if(hours)
-			output = hours + ":" + minutes + ":" + seconds;
-		else if(minutes)
-			output = minutes + ":" + seconds;
-		else
-			output = seconds;
 		
+		if(hours)
+			output = date.toISOString().substr(11, 8);
+		else if(minutes)
+			output = date.toISOString().substr(14, 5);
+		else if(seconds)
+			output = date.toISOString().substr(14, 5);
+		else
+			output = "00:00";
+
 		return output;
 	});
 	
