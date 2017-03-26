@@ -1,6 +1,6 @@
 var fullTranscript;
 var times = [];
-
+var seconds = [];
 
 function get(vid) {
 	var timedTextRequest = new XMLHttpRequest();
@@ -14,6 +14,10 @@ function get(vid) {
 	fullTranscript = timedTextXML.childNodes[0];
 }
 
+function seconds(){
+	return seconds;
+}
+
 function search(){
 	var string = document.getElementById("searchBar").value;
 	
@@ -23,6 +27,8 @@ function search(){
 		times = [];
 		return "not found";
 	}
+	else
+		seconds = times;
 	
 	var result = times.map(function(num){
 		num /= 3600;
