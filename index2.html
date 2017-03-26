@@ -54,6 +54,17 @@
 			}
 			console.log(search());
 			result = search();
+			if (result == "not found") {
+				var k = 0;
+				for (k = 0; k < 5; k++) {
+					currentButton = document.getElementById("result" + (k+1));
+					currentButton.style.display = "none";
+				}				
+				currentButton = document.getElementById("result1");
+				currentButton.style.display = "display";
+				currentButton.innerHTML = "NOT FOUND"
+				return;
+			}
 			var input1 = document.getElementById("result1");
 
 			if (result.length == 0) {
@@ -70,6 +81,7 @@
 					outsideCounter++;
 					input1.style.display = "inline";
 					input1.innerHTML = result[i];
+
 				}
 			}
 			console.log("Out here!");

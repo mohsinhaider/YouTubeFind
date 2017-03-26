@@ -6,8 +6,9 @@ function get(vid) {
 	var timedTextRequest = new XMLHttpRequest();
 	timedTextRequest.open("GET", "https://video.google.com/timedtext?lang=en&v=" + vid, false);
 	timedTextRequest.send();
+	if(timedTextRequest.status)
 	
-	var mydoc;
+	var mydoc = [];
 	
 	var timedTextXML = timedTextRequest.responseXML;
 	fullTranscript = timedTextXML.childNodes[0];
@@ -17,6 +18,11 @@ function search(){
 	var string = document.getElementById("searchBar").value;
 	
 	containsWords(string);
+	
+	if(!Array.isArray(times)){
+		times = [];
+		return "not found";
+	}
 	
 	var result = times.map(function(num){
 		num /= 3600;
