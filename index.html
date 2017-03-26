@@ -12,7 +12,6 @@
 
   <script> 
   var result;
-
 	function fetchD(){
 		var bString = document.getElementById('vInput1').value;
 		var n = bString.search("www.youtube.com/watch?");
@@ -33,7 +32,11 @@
 		document.getElementById('vInput3').innerHTML = urlString; 
 		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
 	}
-
+	
+	function resetSearch(){
+		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
+	}
+	
 	function hideD() {
     var x = document.getElementById('vButton2');
     if (x.style.display === 'none') {
@@ -48,7 +51,7 @@
 		// var currentButton;
 		if(code == 13) { //Enter keycode
 			var j = 0;
-			for (j = 0; j < 5; j++) {
+			for (j = 0; j < 7; j++) {
 				currentButton = document.getElementById("result" + (j+1));
 				currentButton.style.display = "none";
 			}
@@ -56,17 +59,17 @@
 			result = search();
 			if (result == "not found") {
 				var k = 0;
-				for (k = 0; k < 5; k++) {
+				for (k = 0; k < 7; k++) {
 					currentButton = document.getElementById("result" + (k+1));
 					currentButton.style.display = "none";
 				}				
 				currentButton = document.getElementById("result1");
 				currentButton.style.display = "display";
 				currentButton.innerHTML = "NOT FOUND"
+				resetSearch();
 				return;
 			}
 			var input1 = document.getElementById("result1");
-
 			if (result.length == 0) {
 				input1.innerHTML = "Word or Phrase not found!"
 			}
@@ -74,28 +77,27 @@
 				var outsideCounter = 0;
 				var i = 0;
 				for (i = 0; i < result.length; i++) {
-					if (outsideCounter == 5) {
+					if (outsideCounter == 7) {
 						break;
 					}
 					input1 = document.getElementById("result" + (i+1));
 					outsideCounter++;
 					input1.style.display = "inline";
 					input1.innerHTML = result[i];
-
 				}
 			}
 			console.log("Out here!");
-			//input1.innerHTML = result[0];
+			input1.innerHTML = result[0];
+			resetSearch();
 		}
 	}
 	
 	function enterpressalertBut(e, textarea){
-	var code = (e.keyCode ? e.keyCode : e.which);
-	if(code == 13) { //Enter keycode
-		fetchD();
-	}	
-	}	
-
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code == 13) { //Enter keycode
+			fetchD();
+		}	
+	}
   </script>
   <title> Youtube Find </title> 
   <style> 
@@ -114,28 +116,30 @@
   div.button1{
 	padding-left: 250px;
 	padding-right: 250px;
-	padding-top: 50px;
+	padding-top: 30px;
+	padding-bottom: 30px;
   }
   .button-bg {
   	background-color: red;
   }
-
   
   </style>
 </head>
 <body>
 <div id = "table1" class= "head1"> <img src="images/youtube-finder-logo.png" alt=""> </div> 
 
-<div class = "input1" id = "SearchBar"> </div>
+<div class = "input1" id = "SearchBar" > </div>
 
 <div class = "input1" id = "vInput3" > </div>
 
 <div id="time_container" class="input1">
-	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none;">Hello</button>
-	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none; "></button>
+	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none"></button>
 	<button class="waves-effect waves-light btn button-bg" id="result3" style="display: none"></button>
 	<button class="waves-effect waves-light btn button-bg" id="result4" style="display: none"></button>
 	<button class="waves-effect waves-light btn button-bg" id="result5" style="display: none"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result6" style="display: none"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result7" style="display: none"></button>
 </div>
 
 <div class = "input1" id = "vInput2" > Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> </div>
@@ -145,4 +149,3 @@
   
 </body>
 </html>
-
