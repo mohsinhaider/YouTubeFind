@@ -3,6 +3,66 @@
 <head>
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css"> 
+  <title> Youtube Find </title> 
+  <style> 
+	  div.head1{
+		padding-left: 450px;
+		font-size: 80px;
+		padding-top = 300px;
+	  }
+	  div#table1{
+		background-color: white;
+	  }
+	  div.input1{
+		padding-left: 250px;
+		padding-right: 250px;
+		padding-top: 50px;
+	  }
+	  div.button1{
+		padding-left: 250px;
+		padding-right: 250px;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	  }
+	  .button-bg {
+	  	background-color: red;
+	  }
+  </style>
+</head>
+
+<body>
+	<div id = "table1" class= "head1"> <img src="images/youtube-finder-logo.png" alt=""> </div> 
+
+	<div  id = "SearchBar" > </div>
+
+	<div  id = "vInput3" > </div>
+
+	<div id="time_container" class="input1">
+	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none" onclick="onClick(1)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none" onclick="onClick(2)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result3" style="display: none" onclick="onClick(3)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result4" style="display: none" onclick="onClick(4)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result5" style="display: none" onclick="onClick(5)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result6" style="display: none" onclick="onClick(6)"></button>
+	<button class="waves-effect waves-light btn button-bg" id="result7" style="display: none" onclick="onClick(7)"></button>
+	</div>
+
+	<div class = "input1" id = "vInput2" > 
+		Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> 
+	</div>
+
+	<div class = "button1" id = "vButton2">  
+		<button id = "vButton1" class="btn waves-effect waves-light" type="submit" name="action" onclick = "fetchD()">Submit
+  		</button> 
+  	</div>
+
+  <h1 id="bigOne"></h1>
+
+  <!-- Firebase must be first -->
+  <script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
+  <script src="database.js"></script>
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
   <!-- Compiled and minified JavaScript -->
@@ -12,9 +72,10 @@
 
   <script> 
   var result;
+  var videoID;
 	function fetchD(){
 		var bString = document.getElementById('vInput1').value;
-		var n = bString.search("www.youtube.com/watch?");
+		var n = bString.search("youtube.com/watch?");
 		console.log(n);
 		if( n > -1){
 			replaceD();
@@ -25,16 +86,23 @@
 	function replaceD(){
 		var aString = document.getElementById('vInput1').value;
 		var arrString = aString.split("v=");
-		var videoID = arrString[1];
+		var tempString = arrString[1];
+		var brrString = tempString.split("?");
+		videoID = brrString[0];
 		get(videoID);
-		var urlString = '<iframe src="http://www.youtube.com/embed/'+ videoID +'" width="800" height="400" frameborder="0" allowfullscreen></iframe>';
-		var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+		var urlString = '<div class = "input1"><iframe src="http://www.youtube.com/embed/'+ videoID +'" width="800" height="400" frameborder="0" allowfullscreen></iframe></div>';
+		//var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
 		document.getElementById('vInput3').innerHTML = urlString; 
-		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
+		document.getElementById('SearchBar').innerHTML = '<div class = "input1">Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav></div>';
+	}
+	
+	function onClick(num){
+		var urlString = '<div class = "input1"><iframe src="http://www.youtube.com/embed/'+ videoID + '?start='+ Math.floor(seconds[num-1])+ '&autoplay=1&cc_load_policy=1" width="800" height="400" frameborder="0" allowfullscreen></iframe></div>';
+		document.getElementById('vInput3').innerHTML = urlString;
 	}
 	
 	function resetSearch(){
-		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
+		document.getElementById('SearchBar').innerHTML = '<div class = "input1">Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav></div>';
 	}
 	
 	function hideD() {
@@ -50,22 +118,45 @@
 		var code = (e.keyCode ? e.keyCode : e.which);
 		// var currentButton;
 		if(code == 13) { //Enter keycode
+			// String in search bar -- seperate from videoID
+			var searchTerm = document.getElementById("searchBar").value.toLowerCase();
+			var databaseref;
+			// Case when >= 1
+			try {
+				console.log("Here1");
+				// databaseref = firebase.database().ref().child(videoID);
+				databaseref = firebase.database().ref().child(videoID).child(searchTerm);
+
+				databaseref.transaction(function (searchTerm) {
+					if (searchTerm) {
+						searchTerm = searchTerm + 1;
+						return searchTerm;
+					}
+					else
+						return (searchTerm || 0) + 1;
+				});
+			}
+			catch (err) {
+				console.log("Here2");
+				databaseref = firebase.database().ref().child(videoID).child(searchTerm).set(1);
+			}
+
+			//firebaseReference.child(videoID).child(searchTerm.value).set(1);
+
+
 			var j = 0;
 			for (j = 0; j < 7; j++) {
 				currentButton = document.getElementById("result" + (j+1));
 				currentButton.style.display = "none";
 			}
 			result = search();
-			console.log(result);
 			if (result == "not found") {
 				var k = 0;
 				for (k = 0; k < 7; k++) {
 					currentButton = document.getElementById("result" + (k+1));
 					currentButton.style.display = "none";
 				}				
-				currentButton = document.getElementById("result1");
-				currentButton.style.display = "inline";
-				currentButton.innerHTML = "NOT FOUND"
+				alert('No results were found.');
 				resetSearch();
 				return;
 			}
@@ -98,68 +189,6 @@
 		}	
 	}
   </script>
-  <title> Youtube Find </title> 
-  <style> 
-  div.head1{
-	padding-left: 450px;
-	font-size: 80px;
-  }
-  div#table1{
-	background-color: white;
-  }
-  div.input1{
-	padding-left: 250px;
-	padding-right: 250px;
-	padding-top: 50px;
-  }
-  div.button1{
-	padding-left: 250px;
-	padding-right: 250px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-  }
-  .button-bg {
-  	background-color: red;
-  }
-  
-  </style>
-</head>
-<body>
-<div id = "table1" class= "head1"> <img src="images/youtube-finder-logo.png" alt=""> </div> 
-
-<div class = "input1" id = "SearchBar" > </div>
-
-<div class = "input1" id = "vInput3" > </div>
-
-<div id="time_container" class="input1">
-	<p id = "sentence"></p>
-	<button class="waves-effect waves-light btn button-bg" id="result1" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result2" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result3" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result4" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result5" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result6" style="display: none"></button>
-	<button class="waves-effect waves-light btn button-bg" id="result7" style="display: none"></button>
-</div>
-
-<div class = "input1" id = "vInput2" > Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> </div>
-
-<div class = "button1" id = "vButton2">  <button id = "vButton1" class="btn waves-effect waves-light" type="submit" name="action" onclick = "fetchD()">Submit
-  </button> </div>
-
-  
-<script src="https://www.gstatic.com/firebasejs/3.7.3/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAhaZDJSRcIQakh_ca_IzioF0NfG40SM_o",
-    authDomain: "youtubefine.firebaseapp.com",
-    databaseURL: "https://youtubefine.firebaseio.com",
-    storageBucket: "youtubefine.appspot.com",
-    messagingSenderId: "988150057582"
-  };
-  firebase.initializeApp(config);
-</script>
   
 </body>
 </html>

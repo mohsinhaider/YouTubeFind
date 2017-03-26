@@ -6,10 +6,13 @@ function get(vid) {
 	var timedTextRequest = new XMLHttpRequest();
 	timedTextRequest.open("GET", "https://video.google.com/timedtext?lang=en&v=" + vid, false);
 	timedTextRequest.send();
-	if(timedTextRequest.status)
+	console.log(timedTextRequest.status);
+	
+	if(!timedTextRequest.responseXML){
+		alert("illegal url");
+	}
 	
 	var mydoc = [];
-	
 	var timedTextXML = timedTextRequest.responseXML;
 	fullTranscript = timedTextXML.childNodes[0];
 }
@@ -20,7 +23,9 @@ function seconds(){
 
 function search(){
 	var string = document.getElementById("searchBar").value;
-	
+	// if(string.incudes("the")){
+		// console.log("the");
+	// }
 	containsWords(string);
 	
 	if(!Array.isArray(times)){
@@ -88,6 +93,7 @@ function containsWords(line){
 	var flag = false;
 	var includeEnd = false;
 	var next;
+	line.toLowerCase();
 	var string = line.split(" ");
 	var word;
 	
@@ -98,7 +104,7 @@ function containsWords(line){
 		j++;
 		
 		for(w = 0; w < string.length; w++){
-			if(mydoc.innerHTML.includes(string[w])){
+			if(mydoc.innerHTML.toLowerCase().includes(string[w])){
 				
 				if(i == fullTranscript.childNodes.length - 1){
 					includeEnd = true;
@@ -106,10 +112,12 @@ function containsWords(line){
 				
 				continue;
 			}
-			else if((w > 0) && (fullTranscript.childNodes[next].innerHTML.includes(string[w]))){
-				mydoc = fullTranscript.childNodes[next];
-				next++;
-				j--;
+			else if((w > 0) && (fullTranscript.childNodes[next])){
+				if(fullTranscript.childNodes[next].innerHTML.toLowerCase().includes(string[w])){
+					mydoc = fullTranscript.childNodes[next];
+					next++;
+					j--;
+				}
 				
 				if(i == fullTranscript.childNodes.length - 1){
 					includeEnd = true;
