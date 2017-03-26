@@ -1,4 +1,4 @@
-CTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <!-- Compiled and minified CSS -->
@@ -11,6 +11,8 @@ CTYPE html>
   <script src="updatecsv.js"></script>
 
   <script> 
+  var result;
+
 	function fetchD(){
 		var bString = document.getElementById('vInput1').value;
 		var n = bString.search("www.youtube.com/watch?");
@@ -30,6 +32,8 @@ CTYPE html>
 		var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
 		document.getElementById('vInput3').innerHTML = urlString; 
 		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
+
+
 	}
 	function hideD() {
     var x = document.getElementById('vButton2');
@@ -40,11 +44,31 @@ CTYPE html>
     }
 	}
 	
-	function enterpressalert(e, textarea){
-	var code = (e.keyCode ? e.keyCode : e.which);
-	if(code == 13) { //Enter keycode
-		console.log(search());
-	}
+	function enterpressalert(e, textarea) {
+		var code = (e.keyCode ? e.keyCode : e.which);
+
+		if(code == 13) { //Enter keycode
+			console.log(search());
+			result = search();
+			var input1 = document.getElementById("result1");
+
+			if (result.length == 0) {
+				input1.innerHTML = "Word or Phrase not found!"
+			}
+			else {
+				var outsideCounter = 0;
+				var i = 0;
+				for (i = 0; i < result.length; i++) {
+					if (outsideCounter == 5) {
+						break;
+					}
+					input1 = document.getElementById("result" + (i+1) );
+					input1.innerHTML = result[i];
+				}
+			}
+			console.log("Out here!");
+			input1.innerHTML = result[0];
+		}
 	}
 	
 	function enterpressalertBut(e, textarea){
@@ -84,6 +108,13 @@ CTYPE html>
 
 <div class = "input1" id = "vInput3" > </div>
 
+<div id="time_container" class="input1">
+	<span id="result1"></span>
+	<span id="result2"></span>
+	<span id="result3"></span>
+	<span id="result4"></span>
+	<span id="result5"></span>
+</div>
 
 <div class = "input1" id = "vInput2" > Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> </div>
 
