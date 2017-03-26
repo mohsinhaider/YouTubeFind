@@ -18,12 +18,26 @@ function search(){
 	
 	containsWords(string);
 	
+	var result = times.map(function(num){
+		num /= 3600;
+		var hours = Math.floor(num);
+		num -= hours;
+		num *= 60;
+		var minutes = Math.floor(num);
+		num -= minutes;
+		num *= 60;
+		var seconds = num.toFixed(2);
+		
+		var output = hours + ":" + minutes + ":" + seconds;
+		return output;
+	});
+	
 	console.log("String found at: ");
-	if(Array.isArray(times))
-		console.log(times.join("\n"));
+	if(Array.isArray(result))
+		console.log(result.join("\n"));
 	else
 		console.log("none found");
-	var result = times;
+	
 	times = [];
 	return result;
 }
