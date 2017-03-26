@@ -93,7 +93,6 @@ function containsWords(line){
 	var flag = false;
 	var includeEnd = false;
 	var next;
-	line.toLowerCase();
 	var string = line.split(" ");
 	var word;
 	
@@ -104,7 +103,7 @@ function containsWords(line){
 		j++;
 		
 		for(w = 0; w < string.length; w++){
-			if(mydoc.innerHTML.toLowerCase().includes(string[w])){
+			if(mydoc.innerHTML.toLowerCase().includes(string[w].toLowerCase())){
 				
 				if(i == fullTranscript.childNodes.length - 1){
 					includeEnd = true;
@@ -113,7 +112,7 @@ function containsWords(line){
 				continue;
 			}
 			else if((w > 0) && (fullTranscript.childNodes[next])){
-				if(fullTranscript.childNodes[next].innerHTML.toLowerCase().includes(string[w])){
+				if(fullTranscript.childNodes[next].innerHTML.toLowerCase().includes(string[w].toLowerCase())){
 					mydoc = fullTranscript.childNodes[next];
 					next++;
 					j--;
