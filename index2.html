@@ -1,0 +1,95 @@
+CTYPE html>
+<html>
+<head>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+  
+  <script src="updatecsv.js"></script>
+
+  <script> 
+	function fetchD(){
+		var bString = document.getElementById('vInput1').value;
+		var n = bString.search("www.youtube.com/watch?");
+		console.log(n);
+		if( n > -1){
+			replaceD();
+		}else{
+			alert("Bad URL please try again");
+		}
+	}
+	function replaceD(){
+		var aString = document.getElementById('vInput1').value;
+		var arrString = aString.split("v=");
+		var videoID = arrString[1];
+		get(videoID);
+		var urlString = '<iframe src="http://www.youtube.com/embed/'+ videoID +'" width="800" height="400" frameborder="0" allowfullscreen></iframe>';
+		var defaultS =  '<iframe src="http://www.youtube.com/embed/AXnqkVTFUqY" width="560" height="315" frameborder="0" allowfullscreen></iframe>';
+		document.getElementById('vInput3').innerHTML = urlString; 
+		document.getElementById('SearchBar').innerHTML = 'Enter the key word that you are looking for: <nav> <div class="nav-wrapper"><div class="input-field"> <input id="searchBar" type="search" placeholder = "Search..." onkeypress="enterpressalert(event, this)" required> <label class="label-icon" for="search"><i class="material-icons"></i></label> </div> </div> </nav>';
+	}
+	function hideD() {
+    var x = document.getElementById('vButton2');
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+	}
+	
+	function enterpressalert(e, textarea){
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if(code == 13) { //Enter keycode
+		console.log(search());
+	}
+	}
+	
+	function enterpressalertBut(e, textarea){
+	var code = (e.keyCode ? e.keyCode : e.which);
+	if(code == 13) { //Enter keycode
+		fetchD();
+	}	
+	}	
+
+  </script>
+  <title> Youtube Find </title> 
+  <style> 
+  div.head1{
+	padding-left: 450px;
+	font-size: 80px;
+  }
+  div#table1{
+	background-color: white;
+  }
+  div.input1{
+	padding-left: 250px;
+	padding-right: 250px;
+	padding-top: 50px;
+  }
+  div.button1{
+	padding-left: 250px;
+	padding-right: 250px;
+	padding-top: 50px;
+  }
+  
+  </style>
+</head>
+<body>
+<div id = "table1" class= "head1"> <img src="images/youtube-finder-logo.png" alt=""> </div> 
+
+<div class = "input1" id = "SearchBar"> </div>
+
+<div class = "input1" id = "vInput3" > </div>
+
+
+<div class = "input1" id = "vInput2" > Please enter a URL: <input id = "vInput1" type = "text" value = "" placeholder = "URL" size = "20" onkeypress="enterpressalertBut(event, this)"> </div>
+
+<div class = "button1" id = "vButton2">  <button id = "vButton1" class="btn waves-effect waves-light" type="submit" name="action" onclick = "fetchD()">Submit
+  </button> </div>
+  
+</body>
+</html>
+
